@@ -26,6 +26,10 @@ setdefaulttimeout(600)
 
 botStartTime = time()
 
+if ospath.exists('log.txt'):
+    with open('log.txt', 'w+') as f:
+        f.truncate(0)
+
 basicConfig(
     format="%(asctime)s - [%(filename)s:%(lineno)d] - %(levelname)s - %(message)s",
     handlers=[FileHandler("log.txt"), StreamHandler()],
@@ -406,6 +410,12 @@ try:
         raise KeyError
 except:
     DRIVEFIRE_CRYPT = None
+try:
+    SHAREDRIVE_PHPCKS = getConfig("SHAREDRIVE_PHPCKS")
+    if len(SHAREDRIVE_PHPCKS) == 0:
+        raise KeyError
+except:
+    SHAREDRIVE_PHPCKS = None
 try:
     TOKEN_PICKLE_URL = getConfig("TOKEN_PICKLE_URL")
     if len(TOKEN_PICKLE_URL) == 0:
